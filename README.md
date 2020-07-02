@@ -15,3 +15,7 @@ To build everything:
     - cd build
     - make
 
+To run the example:
+
+    - cd build
+    - ./example
