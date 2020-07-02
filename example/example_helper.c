@@ -44,7 +44,7 @@ void outputResults(results_t * res)
 {
     printf("Num Tests: %d\n", res->num_tests);
     printf("Num Correct: %d\n", res->num_correct);
-    printf("%% Correct:  %g\n", (double)res->num_correct / (double)res->num_tests);
+    printf("%% Correct:  %g\n", 100.0*(double)res->num_correct / (double)res->num_tests);
 }
 
 void check(results_t * res, int n, int n_guess)
