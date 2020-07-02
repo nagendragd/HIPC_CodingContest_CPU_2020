@@ -36,3 +36,14 @@ To run the example:
 
     - cd build
     - ./example
+
+Sample output written to console:
+    - ./example
+Calibrating execution time for different matrix sizes..
+Done calibrating ...
+Ready for mounting timing-based attack ...
+Running 100 tests ...
+Done running tests ...
+Num Tests: 100
+Num Correct: 77
+% Correct:  77
