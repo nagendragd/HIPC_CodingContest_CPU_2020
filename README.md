@@ -9,3 +9,8 @@ example/ folder contains a full working example of an attack. In this (trivial) 
 The attacker does so by measuring the total time taken by the victim -- a matrix-vector multiplication routine.
 
 build/ contains a Makefile that builds everything. It assumes that your installation contains g++.
+
+To build everything:
+    **cd build**
+    **make**
+
