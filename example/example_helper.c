@@ -24,12 +24,13 @@ void allocVecs(int n, int **m, int **v, int **y)
     }
 }
 
-void allocRes(int n, results_t ** res)
+void allocRes(results_t ** res)
 {
     *res = (results_t*)malloc(sizeof(results_t));
     if (*res == 0) { printf("Fatal error! results could not be allocated\n"); exit(0); }
     
-    (*res)->matrix_size = -1.0;
+    (*res)->num_tests = NUM_TESTS;
+    (*res)->num_correct = 0.0;
 }
 
 void done(int *m, int *v, int *y)
@@ -39,7 +40,14 @@ void done(int *m, int *v, int *y)
     if (y) free(y);
 }
 
-void outputResults(int n, results_t * res)
+void outputResults(results_t * res)
 {
-    printf("%d\n", res->matrix_size);
+    printf("Num Tests: %d\n", res->num_tests);
+    printf("Num Correct: %d\n", res->num_correct);
+    printf("%% Correct:  %g\n", (double)res->num_correct / (double)res->num_tests);
+}
+
+void check(results_t * res, int n, int n_guess)
+{
+    if (n == n_guess) res->num_correct ++;
 }
