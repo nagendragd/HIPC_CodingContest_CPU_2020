@@ -11,7 +11,7 @@ int * m_cols=0; // csr colunn indices
 int * m_vals=0; // csr non-zero values
 int * v=0;
 int * y=0;
-results_t * res;
+results_t *res;
 
 void setupAttack(void);
 void performAttack(void);
@@ -24,6 +24,7 @@ int main(int argc, char ** argv)
     if (n <= 0) { usage(); return 0; }
 
     allocVecs(n, &m, &m_rows, &m_cols, &m_vals, &v, &y);
+    allocRes(n, &res);
 
     // generate matrix
     // if in TRAIN mode, then attacker can control the matrix contents

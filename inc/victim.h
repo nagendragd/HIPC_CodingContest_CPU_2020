@@ -7,6 +7,6 @@
 // v is a dense vector
 // y is the output vector
 // the matrix m is assumed square and of dimensions n by n
-void  runSpMV(int n, int *rows, int *cols, int *vals, int *v, int* y);
+extern "C" void  runSpMV(int n, int *rows, int *cols, int *vals, int *v, int* y);
 
 #endif

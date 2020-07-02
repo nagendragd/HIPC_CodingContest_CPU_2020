@@ -44,16 +44,35 @@ void allocVecs(int n, int **m, int **m_rows, int **m_cols, int ** m_vals, int **
     if (*v == 0) { printf("Fatal error! vector v could not be allocated!\n"); exit(0); }
     if (*y == 0) { printf("Fatal error! vector y could not be allocated!\n"); exit(0); }
 
-    for (int i=0;i<n;i++) *v[i] = 1;
+    int *t = *v;
+    for (int i=0;i<n;i++) 
+    {
+        t[i] = 1;
+    }
+}
+
+void allocRes(int n, results_t ** res)
+{
+    *res = (results_t*)malloc(sizeof(results_t));
+    if (*res == 0) { printf("Fatal error! results could not be allocated\n"); exit(0); }
+    (*res)->nnz = (int*)malloc(sizeof(int)*n);
+    if ((*res)->nnz == 0) { printf("Fatal error! results.nnz could not be allocated\n"); exit(0); }
+    (*res)->cols = (int*)malloc(sizeof(int)*n*sizeof(int)*n);
+    if ((*res)->cols == 0) { printf("Fatal error! results.cols could not be allocated\n"); exit(0); }
+    
+    (*res)->sparsity = -1.0;
+    for (int i=0; i<n; i++) (*res)->nnz[i] = -1;
+    for (int i=0; i<n*n; i++) (*res)->cols[i] = -1;
 }
 
 void done(int *m, int * m_rows, int *m_cols, int *m_vals, int *v, int *y)
 {
-    if (v) free(v);
-    if (y) free(y);
+    if (m) free(m);
     if (m_rows) free(m_rows);
     if (m_cols) free(m_cols);
     if (m_vals) free(m_vals);
+    if (v) free(v);
+    if (y) free(y);
 }
 
 void initResults(int n, results_t * res)
