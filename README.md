@@ -11,7 +11,7 @@ The attacker does so by measuring the total time taken by the victim -- a matrix
 build/ contains a Makefile that builds everything. It assumes that your installation contains g++.
 
 To build everything:
-    **cd build**
 
-    **make**
+    - **cd build**
+    - **make**
 
