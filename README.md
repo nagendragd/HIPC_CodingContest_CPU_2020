@@ -15,6 +15,23 @@ To build everything:
     - cd build
     - make
 
+## About the Example
+The example/ folder contains a sample demonstration of mounting a timing-based side-channel attack.
+In this example, the victim runs a dense matrix-vector multiplication algorithm.
+The attacker's goal is to estimate the size of the matrix (number of rows).
+(For simplicity, we assume a square matrix)
+
+The attack proceeds in two phases.
+In the first phase, the attacker calibrates the time taken by the victim on several matrix sizes.
+The attacker buulds a timings table recording the average time taken for every considered matrix size.
+
+In the second phase, the attacker is tested on matrices of random sizes.
+A number of tests are performed in this phase, and for each test, the attacker's success or failure at
+guessing the size correctly is recorded.
+
+Finally, the program outputs the attacker's success rate: 
+Of the total number of tests conducted, how many times did the attacker succeed?
+
 To run the example:
 
     - cd build
