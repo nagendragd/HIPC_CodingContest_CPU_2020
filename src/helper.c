@@ -40,7 +40,6 @@ void allocVecs(int n, int **m, int **m_rows, int **m_cols, int ** m_vals, int **
     if (*m_rows == 0) { printf("Fatal error! csr rows of matrix m could not be allocated!\n"); exit(0); }
     if (*m_cols == 0) { printf("Fatal error! csr cols of matrix m could not be allocated!\n"); exit(0); }
     if (*m_vals == 0) { printf("Fatal error! csr vals of matrix m could not be allocated!\n"); exit(0); }
-    if (*y == 0) { printf("Fatal error! vector y could not be allocated!\n"); exit(0); }
     if (*v == 0) { printf("Fatal error! vector v could not be allocated!\n"); exit(0); }
     if (*y == 0) { printf("Fatal error! vector y could not be allocated!\n"); exit(0); }
 
@@ -73,16 +72,6 @@ void done(int *m, int * m_rows, int *m_cols, int *m_vals, int *v, int *y)
     if (m_vals) free(m_vals);
     if (v) free(v);
     if (y) free(y);
-}
-
-void initResults(int n, results_t * res)
-{
-    res = (results_t*) malloc(sizeof(results_t));
-    res->sparsity = 0.0;
-    res->nnz = (int*) malloc(sizeof(int)*n);
-    for (int i=0; i<n; i++) res->nnz[i] = -1;
-    res->cols = (int*) malloc(sizeof(int)*n*sizeof(int)*n);
-    for (int i=0; i<n*n; i++) res->cols[i] = -1;
 }
 
 void outputResults(int n, results_t * res)

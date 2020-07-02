@@ -3,19 +3,16 @@
 
 typedef struct
 {
-    double sparsity; // entire matrix wide sparsity
-    int    *nnz; // number of non-zeroes in each row
-    int    *cols; // column indices of non-zeroes in each row - data arranged row by row
+    int matrix_size; // number of rows / columns (of square matrix)
 } results_t;
 
 extern "C" 
 {
     void usage(void);
-    void initCSR(int n, int *m, int *m_rows, int *m_cols, int *m_vals);
-    void allocVecs(int n, int **m, int **m_rows, int **m_cols, int ** m_vals, int **v, int **y);
+    void allocVecs(int n, int **m, int **v, int **y);
     void allocRes(int n, results_t ** res);
     void outputResults(int n, results_t * res);
-    void done(int *m, int * m_rows, int *m_cols, int *m_vals, int *v, int *y);
+    void done(int *m, int *v, int *y);
 }
 
 #endif
