@@ -5,10 +5,7 @@
 #include "example_helper.h"
 
 int n;
-int * m=0; // original dense matrix
-int * m_rows=0; // csr row pointers
-int * m_cols=0; // csr colunn indices
-int * m_vals=0; // csr non-zero values
+int * m=0; // dense matrix
 int * v=0;
 int * y=0;
 results_t *res;
@@ -23,7 +20,7 @@ int main(int argc, char ** argv)
     n = (int) strtoul(argv[1], 0, 10);
     if (n <= 0) { usage(); return 0; }
 
-    allocVecs(n, &m, &m_rows, &m_cols, &m_vals, &v, &y);
+    allocVecs(n, &m, &v, &y);
     allocRes(n, &res);
 
     // generate matrix
@@ -35,14 +32,11 @@ int main(int argc, char ** argv)
     genSecret(n, m);
 #endif
 
-    // convert dense matrix to CSR
-    initCSR(n, m, m_rows, m_cols, m_vals);
-
     // setup your attack conditions/initialize your performance monitoring code here
     setupAttack();
 
     // run the victim
-    runSpMV(n, m_rows, m_cols, m_vals, v, y);
+    runDenseMV(n, m, v, y);
 
     // estimate matrix structure
     performAttack();
@@ -51,7 +45,7 @@ int main(int argc, char ** argv)
     outputResults(n, res);
 
     // cleanup
-    done(m, m_rows, m_cols, m_vals, v, y);
+    done(m, v, y);
 
     return 0;
 }
