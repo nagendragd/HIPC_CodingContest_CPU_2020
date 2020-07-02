@@ -12,6 +12,6 @@ build/ contains a Makefile that builds everything. It assumes that your installa
 
 To build everything:
 
-    - **cd build**
-    - **make**
+    - ##cd build##
+    - ##make##
 
