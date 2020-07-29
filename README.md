@@ -25,6 +25,11 @@ The attack proceeds in two phases.
 In the first phase, the attacker calibrates the time taken by the victim on several matrix sizes.
 The attacker buulds a timings table recording the average time taken for every considered matrix size.
 
+A Note about taking timing readings: we use the Intel rdtsc (read time stamp counter) instruction to read the time stamp. For more details, refer:
+    - https://bduvenhage.me/performance/2019/06/22/high-performance-timer.html
+    and
+    - https://gist.github.com/savanovich/f07eda9dba9300eb9ccf
+
 In the second phase, the attacker is tested on matrices of random sizes.
 A number of tests are performed in this phase, and for each test, the attacker's success or failure at
 guessing the size correctly is recorded.
