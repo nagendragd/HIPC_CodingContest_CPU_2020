@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
 #include <math.h>
 #include <time.h>
 #include "example_victim.h"
@@ -19,6 +18,9 @@ void updateAttack(int, int);
 void finishAttack(void);
 void genYourOwn(int n, int *m);
 
+void train();
+void test();
+
 const int SMALLEST_SIZE=32;
 const int LARGEST_SIZE=1024;
 const int NUM_RUNS=5;
@@ -34,62 +36,8 @@ unsigned long long start, end;
 
 int main(int argc, char ** argv)
 {
-    printf("Calibrating execution time for different matrix sizes..\n");
-    initAttack(LARGEST_SIZE);
-    for (int n=SMALLEST_SIZE; n <= LARGEST_SIZE; n++)
-    {
-        for (int j=0;j<NUM_RUNS; j++)
-        {
-            allocVecs(n, &m, &v, &y);
-    
-            genYourOwn(n, m);
-
-            // setup your attack conditions/initialize your performance monitoring code here
-            setupAttack();
-
-            // run the victim
-            runDenseMV(n, m, v, y);
-
-            // estimate matrix dimension
-            updateAttack(n, j);
-
-            // cleanup
-            done(m, v, y);
-        }
-    }
-    finishAttack();
-    printf("Done calibrating ...\n");
-    printf("Ready for mounting timing-based attack ...\n");
-
-    srand(time(0));
-
-    printf("Running %d tests ...\n", NUM_TESTS);
-    allocRes(&res);
-    for (int i=0;i<NUM_TESTS; i++)
-    {
-        n = SMALLEST_SIZE + rand()%(LARGEST_SIZE-SMALLEST_SIZE);
-
-        allocVecs(n, &m, &v, &y);
-
-        genYourOwn(n, m);
-
-        // setup your attack conditions/initialize your performance monitoring code here
-        setupAttack();
-
-        // run the victim
-        runDenseMV(n, m, v, y);
-
-        // estimate matrix dimension
-        check(res, n, performAttack());
-
-        // cleanup
-        done(m, v, y);
-    }
-    printf("Done running tests ...\n");
-    outputResults(res);
-
-    free(timings);
-
+    train();
+    test();
     return 0;
 }
 
@@ -151,6 +99,68 @@ int performAttack(void)
     }
 
     return n_guess;
+}
+
+void train(void)
+{
+    printf("Calibrating execution time for different matrix sizes..\n");
+    initAttack(LARGEST_SIZE);
+    for (int n=SMALLEST_SIZE; n <= LARGEST_SIZE; n++)
+    {
+        for (int j=0;j<NUM_RUNS; j++)
+        {
+            allocVecs(n, &m, &v, &y);
+    
+            genYourOwn(n, m);
+
+            // setup your attack conditions/initialize your performance monitoring code here
+            setupAttack();
+
+            // run the victim
+            runDenseMV(n, m, v, y);
+
+            // estimate matrix dimension
+            updateAttack(n, j);
+
+            // cleanup
+            done(m, v, y);
+        }
+    }
+    finishAttack();
+    printf("Done calibrating ...\n");
+    printf("Ready for mounting timing-based attack ...\n");
+}
+
+void test(void)
+{
+    srand(time(0));
+
+    printf("Running %d tests ...\n", NUM_TESTS);
+    allocRes(&res);
+    for (int i=0;i<NUM_TESTS; i++)
+    {
+        n = SMALLEST_SIZE + rand()%(LARGEST_SIZE-SMALLEST_SIZE);
+
+        allocVecs(n, &m, &v, &y);
+
+        genYourOwn(n, m);
+
+        // setup your attack conditions/initialize your performance monitoring code here
+        setupAttack();
+
+        // run the victim
+        runDenseMV(n, m, v, y);
+
+        // estimate matrix dimension
+        check(res, n, performAttack());
+
+        // cleanup
+        done(m, v, y);
+    }
+    printf("Done running tests ...\n");
+    outputResults(res);
+
+    free(timings);
 }
 
 void finishAttack(void)
