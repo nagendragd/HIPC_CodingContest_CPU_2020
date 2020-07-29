@@ -5,7 +5,6 @@
 #include "example_victim.h"
 #include "example_helper.h"
 
-int n;
 int * m=0; // dense matrix
 int * v=0;
 int * y=0;
@@ -139,7 +138,7 @@ void test(void)
     allocRes(&res);
     for (int i=0;i<NUM_TESTS; i++)
     {
-        n = SMALLEST_SIZE + rand()%(LARGEST_SIZE-SMALLEST_SIZE);
+        int n = SMALLEST_SIZE + rand()%(LARGEST_SIZE-SMALLEST_SIZE);
 
         allocVecs(n, &m, &v, &y);
 
