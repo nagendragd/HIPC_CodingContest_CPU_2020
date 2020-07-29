@@ -40,6 +40,7 @@ Of the total number of tests conducted, how many times did the attacker succeed?
 To run the example:
 
     - cd build
+    - make
     - ./example
 
 Sample output written to console:
